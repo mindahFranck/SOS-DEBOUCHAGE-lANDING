@@ -37,7 +37,7 @@ jobs:
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
-          server: ftp://141.136.33.32
+          server: ftp://tournoidesgo.net
           username: u877916646.langindftp	
           password: itgrafikDev12@
           local-dir: ./dist/
