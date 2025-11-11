@@ -64,7 +64,7 @@ function App() {
   const menuItems = [
     { id: 'accueil', label: 'Accueil', icon: Home },
     { id: 'services', label: 'Services', icon: Settings },
-    { id: 'pourquoi', label: 'Pourquoi Nous', icon: Award },
+    { id: 'pourquoi', label: 'Pourquoi nous', icon: Award },
     { id: 'temoignages', label: 'Témoignages', icon: MessageCircle },
     { id: 'tarifs', label: 'Tarifs', icon: Calculator },
     { id: 'contact', label: 'Contact', icon: Phone }
@@ -78,7 +78,7 @@ function App() {
           <div className="flex justify-between items-center py-4">
             {/* Logo */}
             <div className="flex items-center space-x-2 animate-fade-in">
-              <img src="./Logo-SOSDebouchage.svg" width={80} height={20} alt="Logo-SOSDebouchage" />
+              <img src="./Logo-SOSDebouchage.svg" width={180} height={20} alt="Logo-SOSDebouchage" />
             </div>
 
             {/* Desktop Menu */}
@@ -171,7 +171,7 @@ function App() {
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight animate-slide-up">
-              Problème de <span className="text-yellow-400">Plomberie ou de Drain</span>?<br />
+              Problème de <span className="text-yellow-400">plomberie ou de drain</span>?<br />
               <span className="text-3xl md:text-4xl animate-pulse">Intervention en moins de 60 minutes!</span>
             </h1>
             <p className="text-xl md:text-2xl mb-8 opacity-90 animate-slide-up animation-delay-200">
@@ -230,7 +230,7 @@ function App() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4 animate-slide-up">
-              Nos Services de <span className="text-blue-600">Débouchage</span>
+              Nos Services de <span className="text-blue-600">débouchage</span>
             </h2>
             <p className="text-xl text-gray-600 animate-slide-up animation-delay-200">
               Solutions rapides et efficaces pour tous vos problèmes de plomberie
@@ -353,7 +353,7 @@ function App() {
                 </div>
                 <div className="flex justify-between items-center py-3 border-b border-gray-200">
                   <span className="font-medium text-gray-700">Temps supplémentaire (inclus 1h de main d'œuvre)</span>
-                  <span className="font-bold text-blue-600 text-lg">90$ /H</span>
+                  <span className="font-bold text-blue-600 text-lg text-nowrap ">90$ /H</span>
                 </div>
               </div>
             </div>
@@ -370,7 +370,7 @@ function App() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4 animate-slide-up">
-              Pourquoi Choisir <span className="text-blue-600">SOS Débouchage</span>?
+              Pourquoi choisir <span className="text-blue-600">SOS Débouchage</span>?
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-6 animate-slide-up animation-delay-200">
               Spécialiste reconnu en débouchage et inspection de drains, nous servons l'Estrie avec plus de 22 ans d'expertise
@@ -430,7 +430,7 @@ function App() {
                 </h3>
                 <div className="space-y-6 text-gray-700">
                   <p className="text-lg leading-relaxed">
-                    <span className="font-semibold text-blue-600">SOS Débouchage</span> est une entreprise spécialisée dans l'inspection de drains,
+                    <span className="text-blue-600">SOS Débouchage</span> est une entreprise spécialisée dans l'inspection de drains,
                     le débouchage et la réparation par gainage. Nous desservons les régions de Sherbrooke, Magog, Drummondville, Coaticook et les villes voisines
                     avec un engagement constant vers l'excellence.
                   </p>
@@ -495,7 +495,7 @@ function App() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4 animate-slide-up">
-              Zones d'<span className="text-blue-600">Intervention</span>
+              Zones d'<span className="text-blue-600">intervention</span>
             </h2>
             <p className="text-xl text-gray-600 animate-slide-up animation-delay-200">
               Service de débouchage disponible dans toute l'Estrie
@@ -546,7 +546,7 @@ function App() {
               onClick={() => scrollToSection('contact')}
               className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105"
             >
-              Vérifier la Disponibilité
+              Vérifier la disponibilité
             </button>
           </div>
         </div>
@@ -611,7 +611,7 @@ function App() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4 animate-slide-up">
-              Ce Que Disent Nos <span className="text-blue-600">Clients</span>
+              Ce que disent nos <span className="text-blue-600">clients</span>
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-yellow-400 mx-auto mt-4 rounded-full animate-slide-up animation-delay-200"></div>
           </div>
@@ -686,7 +686,7 @@ function App() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4 animate-slide-up">
-              Tarifs <span className="text-blue-600">Transparents</span>
+              Tarifs <span className="text-blue-600">transparents</span>
             </h2>
             <p className="text-xl text-gray-600 animate-slide-up animation-delay-200">
               Pas de surprise, des prix clairs et compétitifs
@@ -694,8 +694,8 @@ function App() {
             <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-yellow-400 mx-auto mt-4 rounded-full animate-slide-up animation-delay-400"></div>
           </div>
 
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-gradient-to-r from-blue-50 to-yellow-50 rounded-2xl p-8 mb-8 animate-slide-up">
+           <div className="max-w-4xl mx-auto">
+            {/* <div className="bg-gradient-to-r from-blue-50 to-yellow-50 rounded-2xl p-8 mb-8 animate-slide-up">
               <div className="text-center">
                 <h3 className="text-2xl font-bold text-gray-800 mb-4">🎯 Offre Spéciale</h3>
                 <p className="text-lg text-gray-700 mb-4">
@@ -711,11 +711,11 @@ function App() {
                   </span>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden animate-slide-up">
               <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-4">
-                <h3 className="font-bold text-lg">Grille Tarifaire Complète</h3>
+                <h3 className="font-bold text-lg">Grille tarifaire complète</h3>
               </div>
               <div className="p-6">
                 <div className="space-y-4">
@@ -764,7 +764,7 @@ function App() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold mb-4">Demandez Votre Devis Gratuit</h2>
+              <h2 className="text-4xl font-bold mb-4">Demandez votre devis gratuit</h2>
               <p className="text-xl opacity-90">Remplissez le formulaire, nous vous rappelons dans les 5 minutes</p>
             </div>
 
@@ -796,12 +796,13 @@ function App() {
                 </div>
 
                 <div className="mb-4">
-                  <label className="block text-sm font-semibold mb-2">Email</label>
+                  <label className="block text-sm font-semibold mb-2">Email *</label>
                   <input
                     type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
+                    required
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
                 </div>
@@ -848,7 +849,7 @@ function App() {
                   type="submit"
                   className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-lg text-lg transition-all duration-300 transform hover:scale-105"
                 >
-                  Demander Mon Devis Gratuit
+                  Demander mon devis gratuit
                 </button>
 
                 <p className="text-sm text-gray-600 mt-4 text-center">
@@ -858,7 +859,7 @@ function App() {
 
               <div className="space-y-8">
                 <div>
-                  <h3 className="text-2xl font-bold mb-4">Contactez-nous Directement</h3>
+                  <h3 className="text-2xl font-bold mb-4">Contactez-nous directement</h3>
                   <div className="space-y-4">
                     <div className="flex items-center space-x-3">
                       <Phone className="h-6 w-6 text-yellow-400" />
@@ -885,10 +886,10 @@ function App() {
                 </div>
 
                 <div className="bg-yellow-400 text-blue-900 p-6 rounded-lg">
-                  <h4 className="font-bold text-lg mb-2">🚨 Urgence Critique?</h4>
+                  <h4 className="font-bold text-lg mb-2">🚨 Urgence critique?</h4>
                   <p className="mb-3">Drain bouché, tuyau percé, remontée d'eau...</p>
                   <a href="tel:8194321138" className="bg-red-600 text-white font-bold py-3 px-6 rounded-lg inline-block hover:bg-red-700 transition-colors">
-                    Appelez Immédiatement
+                    Appelez immédiatement
                   </a>
                 </div>
               </div>
