@@ -1,0 +1,45 @@
+name: pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  testing:
+    runs-on: ubuntu-latest
+
+    steps:
+   
+    - name: Exécuter les tests Cypress
+      run: |
+        ls
+    #     cd test
+    #     npx cypress run
+  building:
+   needs: testing
+   runs-on: ubuntu-latest
+   steps:
+    - name: Get source
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20 
+
+    - name: Installer les dépendances
+      run: |
+        npm install
+        npm run build
+
+    
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      with:
+          server: ftp://141.136.33.32
+          username: u877916646.langindftp	
+          password: itgrafikDev12@
+          local-dir: ./dist/
+          protocol: ftps
+          port: 21 
