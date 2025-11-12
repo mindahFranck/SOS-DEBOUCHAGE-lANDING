@@ -1,38 +1,179 @@
-import React, { useState, useEffect } from 'react';
-import { Phone, Clock, Shield, Star, CheckCircle, MapPin, Wrench, Zap, Users, ArrowRight, Award, Menu, X, Home, Settings, MessageCircle, Calculator, Droplets, AlertTriangle } from 'lucide-react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useState, useEffect } from "react";
+import {
+  Phone,
+  Clock,
+  Shield,
+  Star,
+  CheckCircle,
+  MapPin,
+  Wrench,
+  Zap,
+  Users,
+  ArrowRight,
+  Award,
+  Menu,
+  X,
+  Home,
+  Settings,
+  MessageCircle,
+  Calculator,
+  Droplets,
+  AlertTriangle,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
+
+// Composant Image Slider
+function ImageSlider() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const images = [
+    {
+      url: "/images1.jpg",
+      title: "Débouchage professionnel",
+      description: "Équipement de pointe pour tous types de canalisations"
+    },
+    {
+      url: "/images2.jpg",
+      title: "Débouchage professionnel",
+      description: "Diagnostic précis et rapide"
+    },
+    {
+      url: "/images3.jpg",
+      title: "Plomberie résidentielle",
+      description: "Service 24h/7j dans toute l'Estrie"
+    },
+    {
+      url: "/images4.jpg",
+      title: "Intervention rapide",
+      description: "Solutions adaptées à votre domicile"
+    }
+  ];
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % images.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="lg:w-96 w-full">
+      <div className="sticky top-24">
+        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100">
+          <div className="relative h-96 group">
+            {/* Image */}
+            <img
+              src={images[currentSlide].url}
+              alt={images[currentSlide].title}
+              className="w-full h-full object-cover transition-all duration-500"
+            />
+
+            {/* Overlay gradient */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+
+            {/* Content */}
+            <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+              <h3 className="text-2xl font-bold mb-2">
+                {images[currentSlide].title}
+              </h3>
+              <p className="text-sm opacity-90">
+                {images[currentSlide].description}
+              </p>
+            </div>
+
+            {/* Navigation Buttons */}
+            <button
+              onClick={prevSlide}
+              className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 backdrop-blur-sm text-white p-3 rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100"
+            >
+              <ChevronLeft className="h-6 w-6" />
+            </button>
+            <button
+              onClick={nextSlide}
+              className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 backdrop-blur-sm text-white p-3 rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100"
+            >
+              <ChevronRight className="h-6 w-6" />
+            </button>
+
+            {/* Dots Indicator */}
+            <div className="absolute bottom-20 left-0 right-0 flex justify-center space-x-2">
+              {images.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setCurrentSlide(idx)}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    idx === currentSlide
+                      ? "bg-white w-8"
+                      : "bg-white/50 hover:bg-white/75"
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Call to Action */}
+          <div className="p-6 bg-gradient-to-r from-blue-600 to-blue-700 text-white">
+            <h4 className="font-bold text-lg mb-2">Besoin d'intervention?</h4>
+            <p className="text-sm mb-4 opacity-90">
+              Nos experts sont disponibles 24h/7j
+            </p>
+            <a
+              href="tel:8194321138"
+              className="block w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg text-center transition-all duration-300 transform hover:scale-105"
+            >
+              <Phone className="inline-block mr-2 h-5 w-5" />
+              (819) 432-1138
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function App() {
   const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    email: '',
-    address: '',
-    problem: '',
-    urgency: 'normal'
+    name: "",
+    phone: "",
+    email: "",
+    address: "",
+    problem: "",
+    urgency: "normal",
   });
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('accueil');
+  const [activeSection, setActiveSection] = useState("accueil");
+  const [isFormOpen, setIsFormOpen] = useState(true);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    console.log("Form submitted:", formData);
     // Appel téléphonique direct
-    window.location.href = 'tel:8194321138';
+    window.location.href = "tel:8194321138";
   };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = (e: any) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  const scrollToSection = (sectionId: string) => {
+  const scrollToSection = (sectionId: any) => {
     setActiveSection(sectionId);
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: "smooth" });
     }
     setIsMenuOpen(false);
   };
@@ -40,7 +181,14 @@ function App() {
   // Handle scroll to update active section
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['accueil', 'services', 'pourquoi', 'temoignages', 'tarifs', 'contact'];
+      const sections = [
+        "accueil",
+        "services",
+        "pourquoi",
+        "temoignages",
+        "tarifs",
+        "contact",
+      ];
       const scrollPosition = window.scrollY + 100;
 
       for (const section of sections) {
@@ -57,17 +205,17 @@ function App() {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const menuItems = [
-    { id: 'accueil', label: 'Accueil', icon: Home },
-    { id: 'services', label: 'Services', icon: Settings },
-    { id: 'pourquoi', label: 'Pourquoi nous', icon: Award },
-    { id: 'temoignages', label: 'Témoignages', icon: MessageCircle },
-    { id: 'tarifs', label: 'Tarifs', icon: Calculator },
-    { id: 'contact', label: 'Contact', icon: Phone }
+    { id: "accueil", label: "Accueil", icon: Home },
+    { id: "services", label: "Services", icon: Settings },
+    { id: "pourquoi", label: "Pourquoi nous", icon: Award },
+    { id: "temoignages", label: "Témoignages", icon: MessageCircle },
+    { id: "tarifs", label: "Tarifs", icon: Calculator },
+    { id: "contact", label: "Contact", icon: Phone },
   ];
 
   return (
@@ -78,7 +226,12 @@ function App() {
           <div className="flex justify-between items-center py-4">
             {/* Logo */}
             <div className="flex items-center space-x-2 animate-fade-in">
-              <img src="./Logo-SOSDebouchage.svg" width={180} height={20} alt="Logo-SOSDebouchage" />
+              <img
+                src="./Logo-SOSDebouchage.svg"
+                width={180}
+                height={20}
+                alt="Logo-SOSDebouchage"
+              />
             </div>
 
             {/* Desktop Menu */}
@@ -90,7 +243,9 @@ function App() {
                     key={item.id}
                     onClick={() => scrollToSection(item.id)}
                     className={`flex items-center space-x-1 px-3 py-2 rounded-lg transition-all duration-300 hover:bg-blue-50 ${
-                      activeSection === item.id ? 'text-blue-600 bg-blue-50' : 'text-gray-700 hover:text-blue-600'
+                      activeSection === item.id
+                        ? "text-blue-600 bg-blue-50"
+                        : "text-gray-700 hover:text-blue-600"
                     }`}
                   >
                     <Icon className="h-4 w-4" />
@@ -118,251 +273,308 @@ function App() {
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
               >
-                {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-              </button>
-            </div>
-          </div>
-
-          {/* Mobile Menu */}
-          {isMenuOpen && (
-            <div className="lg:hidden absolute top-full left-0 right-0 bg-white shadow-xl border-t animate-slide-down">
-              <div className="py-4">
-                {menuItems.map((item) => {
-                  const Icon = item.icon;
-                  return (
-                    <button
-                      key={item.id}
-                      onClick={() => scrollToSection(item.id)}
-                      className={`w-full flex items-center space-x-3 px-6 py-3 text-left transition-all duration-300 hover:bg-blue-50 ${
-                        activeSection === item.id ? 'text-blue-600 bg-blue-50 border-r-4 border-blue-600' : 'text-gray-700'
-                      }`}
-                    >
-                      <Icon className="h-5 w-5" />
-                      <span className="font-medium">{item.label}</span>
-                    </button>
-                  );
-                })}
-                <div className="px-6 py-4 border-t mt-4">
-                  <div className="flex items-center space-x-2 text-blue-600 mb-2">
-                    <Phone className="h-4 w-4" />
-                    <span className="font-semibold">(819) 432-1138</span>
-                  </div>
-                  <div className="flex items-center space-x-2 text-gray-600">
-                    <Clock className="h-4 w-4" />
-                    <span>Service 24h/7j</span>
-                  </div>
-                </div>
+                {isMenuOpen ? (
+                  <X className="h-6 w-6" />
+                ) : (
+                    <Menu className="h-6 w-6" />
+                  )}
+                </button>
               </div>
             </div>
-          )}
-        </div>
-      </nav>
 
-      {/* Hero Section */}
-      <section id="accueil" className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 text-white py-32 relative overflow-hidden">
-        {/* Animated background elements */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-10 left-10 w-20 h-20 bg-white rounded-full animate-float"></div>
-          <div className="absolute top-32 right-20 w-16 h-16 bg-yellow-400 rounded-full animate-float-delayed"></div>
-          <div className="absolute bottom-20 left-1/4 w-12 h-12 bg-white rounded-full animate-float"></div>
-          <div className="absolute bottom-32 right-1/3 w-24 h-24 bg-yellow-400 rounded-full animate-float-delayed"></div>
-        </div>
-
-        <div className="container mx-auto px-4 text-center">
-          <div className="max-w-4xl mx-auto">
-            <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight animate-slide-up">
-              Problème de <span className="text-yellow-400">plomberie ou de drain</span>?<br />
-              <span className="text-3xl md:text-4xl animate-pulse">Intervention en moins de 60 minutes!</span>
-            </h1>
-            <p className="text-xl md:text-2xl mb-8 opacity-90 animate-slide-up animation-delay-200">
-              Service d'urgence 24h/7j • Plombiers certifiés • Devis gratuit
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-slide-up animation-delay-400">
-              <a href="tel:8194321138" className="bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-full text-xl transition-all duration-300 transform hover:scale-110 hover:shadow-2xl shadow-lg animate-pulse-slow group">
-                <Phone className="inline-block mr-2 h-6 w-6" />
-                Appeler Maintenant
-                <ArrowRight className="inline-block ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </a>
-              <button
-                onClick={() => scrollToSection('contact')}
-                className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-blue-800 font-semibold py-4 px-8 rounded-full text-xl transition-all duration-300 transform hover:scale-105 group"
-              >
-                Devis Gratuit
-                <ArrowRight className="inline-block ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-              </button>
-            </div>
-            <div className="mt-8 flex justify-center items-center space-x-8 text-sm animate-fade-in animation-delay-600">
-              <div className="flex items-center space-x-2">
-                <CheckCircle className="h-5 w-5 text-green-400 animate-bounce animation-delay-100" />
-                <span>Sans engagement</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <CheckCircle className="h-5 w-5 text-green-400 animate-bounce animation-delay-200" />
-                <span>Garantie satisfaction</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <CheckCircle className="h-5 w-5 text-green-400 animate-bounce animation-delay-300" />
-                <span>Prix transparent</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Urgency Banner */}
-      <section className="bg-gradient-to-r from-red-600 to-red-700 text-white py-4 shadow-lg">
-        <div className="container mx-auto px-4 text-center">
-          <div className="flex items-center justify-center space-x-2">
-            <Zap className="h-6 w-6 animate-pulse text-yellow-300" />
-            <span className="font-bold text-lg animate-pulse">URGENCE 24H/7J - Intervention garantie en moins de 60 minutes</span>
-            <Zap className="h-6 w-6 animate-pulse text-yellow-300" />
-          </div>
-        </div>
-      </section>
-
-      {/* Services */}
-      <section id="services" className="py-20 bg-gradient-to-b from-gray-50 to-white relative">
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-20 left-10 w-32 h-32 bg-blue-600 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-20 right-10 w-40 h-40 bg-yellow-400 rounded-full blur-3xl"></div>
-        </div>
-
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4 animate-slide-up">
-              Nos Services de <span className="text-blue-600">débouchage</span>
-            </h2>
-            <p className="text-xl text-gray-600 animate-slide-up animation-delay-200">
-              Solutions rapides et efficaces pour tous vos problèmes de plomberie
-            </p>
-            <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-yellow-400 mx-auto mt-4 rounded-full animate-slide-up animation-delay-400"></div>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-            {[
-              {
-                title: "Débouchage (canalisation 3\" et plus caméra inclus)",
-                description: "Intervention rapide pour déboucher tous types de canalisations",
-                icon: "🚿",
-                price: "425.00 $",
-                features: ["Diagnostic inclus", "Intervention rapide", "Garantie 6 mois"],
-                popular: false
-              },
-              {
-                title: "Débouchage mineurs",
-                description: "Débouchage d'éviers, lavabos et petites canalisations",
-                icon: "🔧",
-                price: "265.00 $",
-                features: ["Équipement spécialisé", "Service rapide", "Prix transparent"],
-                popular: true
-              },
-              {
-                title: "Inspection par caméra",
-                description: "Diagnostic précis avec caméra haute définition",
-                icon: "📹",
-                price: "295.00 $",
-                features: ["Rapport détaillé", "Images HD", "Devis précis"],
-                popular: false
-              },
-              {
-                title: "Nettoyage de drain français",
-                description: "Nettoyage et entretien complet de vos drains français",
-                icon: "💨",
-                price: "335.00 $",
-                features: ["Efficacité maximale", "Longue durée", "Prévention"],
-                popular: false
-              },
-              {
-                title: "Transport",
-                description: "Frais de déplacement pour intervention",
-                icon: "🚗",
-                price: "85.00 $",
-                features: ["Rapide", "Zone étendue", "Service flexible"],
-                popular: false
-              },
-              {
-                title: "Appel de service",
-                description: "Frais d'intervention standard",
-                icon: "📞",
-                price: "125.00 $",
-                features: ["Disponible 24/7", "Professionnel", "Sans engagement"],
-                popular: false
-              }
-            ].map((service, index) => (
-              <div
-                key={index}
-                className={`bg-white rounded-2xl shadow-lg p-8 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border group animate-slide-up relative overflow-hidden ${
-                  service.popular ? 'border-yellow-400 ring-2 ring-yellow-400' : 'border-gray-100'
-                }`}
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                {service.popular && (
-                  <div className="absolute top-0 right-0 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white px-4 py-1 rounded-bl-lg text-sm font-bold">
-                    POPULAIRE
-                  </div>
-                )}
-
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-yellow-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-
-                <div className="relative z-10">
-                  <div className="text-5xl mb-6 transform group-hover:scale-110 transition-transform duration-300">
-                    {service.icon}
-                  </div>
-                  <h3 className="text-2xl font-bold text-gray-800 mb-4 group-hover:text-blue-600 transition-colors">
-                    {service.title}
-                  </h3>
-                  <p className="text-gray-600 mb-6 leading-relaxed">{service.description}</p>
-
-                  <ul className="space-y-2 mb-6">
-                    {service.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-center text-sm text-gray-700">
-                        <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-
-                  <div className="flex items-center justify-between">
-                    <div className="text-2xl font-bold text-blue-600">
-                      {service.price}
+            {/* Mobile Menu */}
+            {isMenuOpen && (
+              <div className="lg:hidden absolute top-full left-0 right-0 bg-white shadow-xl border-t animate-slide-down">
+                <div className="py-4">
+                  {menuItems.map((item) => {
+                    const Icon = item.icon;
+                    return (
+                      <button
+                        key={item.id}
+                        onClick={() => scrollToSection(item.id)}
+                        className={`w-full flex items-center space-x-3 px-6 py-3 text-left transition-all duration-300 hover:bg-blue-50 ${
+                          activeSection === item.id
+                            ? "text-blue-600 bg-blue-50 border-r-4 border-blue-600"
+                            : "text-gray-700"
+                        }`}
+                      >
+                        <Icon className="h-5 w-5" />
+                        <span className="font-medium">{item.label}</span>
+                      </button>
+                    );
+                  })}
+                  <div className="px-6 py-4 border-t mt-4">
+                    <div className="flex items-center space-x-2 text-blue-600 mb-2">
+                      <Phone className="h-4 w-4" />
+                      <span className="font-semibold">(819) 432-1138</span>
                     </div>
-                    <button
-                      onClick={() => scrollToSection('contact')}
-                      className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 transform hover:scale-105 group-hover:shadow-lg"
-                    >
-                      Réserver
-                    </button>
+                    <div className="flex items-center space-x-2 text-gray-600">
+                      <Clock className="h-4 w-4" />
+                      <span>Service 24h/7j</span>
+                    </div>
                   </div>
                 </div>
               </div>
-            ))}
+            )}
+          </div>
+        </nav>
+
+        {/* Hero Section */}
+        <section
+          id="accueil"
+          className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 text-white py-32 relative overflow-hidden"
+        >
+          {/* Animated background elements */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute top-10 left-10 w-20 h-20 bg-white rounded-full animate-float"></div>
+            <div className="absolute top-32 right-20 w-16 h-16 bg-yellow-400 rounded-full animate-float-delayed"></div>
+            <div className="absolute bottom-20 left-1/4 w-12 h-12 bg-white rounded-full animate-float"></div>
+            <div className="absolute bottom-32 right-1/3 w-24 h-24 bg-yellow-400 rounded-full animate-float-delayed"></div>
           </div>
 
-          {/* Services supplémentaires */}
-          <div className="mt-12 max-w-4xl mx-auto">
-            <div className="bg-gradient-to-r from-blue-50 to-yellow-50 rounded-2xl p-8 border border-blue-100">
-              <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">Services Supplémentaires</h3>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="flex justify-between items-center py-3 border-b border-gray-200">
-                  <span className="font-medium text-gray-700">Appel de service d'urgence</span>
-                  <span className="font-bold text-blue-600 text-lg">475.00 $</span>
+          <div className="container mx-auto px-4 text-center">
+            <div className="max-w-4xl mx-auto">
+              <h1 className="text-5xl md:text-6xl font-bold mb-6 leading-tight animate-slide-up">
+                Problème de{" "}
+                <span className="text-yellow-400">plomberie ou de drain</span>?
+                <br />
+                <span className="text-3xl md:text-4xl animate-pulse">
+                  Intervention en moins de 60 minutes!
+                </span>
+              </h1>
+              <p className="text-xl md:text-2xl mb-8 opacity-90 animate-slide-up animation-delay-200">
+                Service d'urgence 24h/7j • Plombiers certifiés • Devis gratuit
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-slide-up animation-delay-400">
+                <a
+                  href="tel:8194321138"
+                  className="bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-8 rounded-full text-xl transition-all duration-300 transform hover:scale-110 hover:shadow-2xl shadow-lg animate-pulse-slow group"
+                >
+                  <Phone className="inline-block mr-2 h-6 w-6" />
+                  Appeler Maintenant
+                  <ArrowRight className="inline-block ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                </a>
+                <button
+                  onClick={() => scrollToSection("contact")}
+                  className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-blue-800 font-semibold py-4 px-8 rounded-full text-xl transition-all duration-300 transform hover:scale-105 group"
+                >
+                  Devis Gratuit
+                  <ArrowRight className="inline-block ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                </button>
+              </div>
+              <div className="mt-8 flex justify-center items-center space-x-8 text-sm animate-fade-in animation-delay-600">
+                <div className="flex items-center space-x-2">
+                  <CheckCircle className="h-5 w-5 text-green-400 animate-bounce animation-delay-100" />
+                  <span>Sans engagement</span>
                 </div>
-                <div className="flex justify-between items-center py-3 border-b border-gray-200">
-                  <span className="font-medium text-gray-700">Localisation (Inclus dans inspection caméra)</span>
-                  <span className="font-bold text-blue-600 text-lg">50.00 $</span>
+                <div className="flex items-center space-x-2">
+                  <CheckCircle className="h-5 w-5 text-green-400 animate-bounce animation-delay-200" />
+                  <span>Garantie satisfaction</span>
                 </div>
-                <div className="flex justify-between items-center py-3 border-b border-gray-200">
-                  <span className="font-medium text-gray-700">Temps supplémentaire (inclus 1h de main d'œuvre)</span>
-                  <span className="font-bold text-blue-600 text-lg text-nowrap ">90$ /H</span>
+                <div className="flex items-center space-x-2">
+                  <CheckCircle className="h-5 w-5 text-green-400 animate-bounce animation-delay-300" />
+                  <span>Prix transparent</span>
                 </div>
               </div>
             </div>
           </div>
+        </section>
+
+        {/* Urgency Banner */}
+        <section className="bg-gradient-to-r from-red-600 to-red-700 text-white py-4 shadow-lg">
+          <div className="container mx-auto px-4 text-center">
+            <div className="flex items-center justify-center space-x-2">
+              <Zap className="h-6 w-6 animate-pulse text-yellow-300" />
+              <span className="font-bold text-lg animate-pulse">
+                URGENCE 24H/7J - Intervention garantie en moins de 60 minutes
+              </span>
+              <Zap className="h-6 w-6 animate-pulse text-yellow-300" />
+            </div>
+          </div>
+        </section>
+
+        {/* Services */}
+       <section
+  id="services"
+  className="py-20 bg-gradient-to-b from-gray-50 to-white relative"
+>
+  <div className="absolute inset-0 opacity-5">
+    <div className="absolute top-20 left-10 w-32 h-32 bg-blue-600 rounded-full blur-3xl"></div>
+    <div className="absolute bottom-20 right-10 w-40 h-40 bg-yellow-400 rounded-full blur-3xl"></div>
+  </div>
+
+  <div className="container mx-auto ">
+    <div className="text-center mb-12">
+      <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4 animate-slide-up">
+        Nos services de <span className="text-blue-600">débouchage</span>
+      </h2>
+      <p className="text-xl text-gray-600 animate-slide-up animation-delay-200">
+        Solutions rapides et efficaces pour tous vos problèmes de plomberie
+      </p>
+      <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-yellow-400 mx-auto mt-4 rounded-full animate-slide-up animation-delay-400"></div>
+    </div>
+
+    {/* Conteneur principal avec grille */}
+    <div className="grid lg:grid-cols-4 gap-8 max-w-full mx-auto">
+      {/* Grille des services - occupe 3/4 de l'espace */}
+      <div className="lg:col-span-3 grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+        {[
+          {
+            title: 'Débouchage (canalisation 3" et plus inspection caméra incluse)',
+            description: "Intervention rapide pour déboucher tous types de canalisations",
+            icon: "🚿",
+            price: "425.00 $",
+            features: ["Diagnostic inclus", "Intervention rapide", "Garantie 6 mois"],
+            popular: false,
+          },
+          {
+            title: "Débouchage mineur",
+            description: "Débouchage d'éviers, lavabos et petites canalisations",
+            icon: "🔧",
+            price: "265.00 $",
+            features: ["Équipement spécialisé", "Service rapide", "Prix transparent"],
+            popular: true,
+          },
+          {
+            title: "Inspection par caméra",
+            description: "Diagnostic précis avec caméra haute définition",
+            icon: "📹",
+            price: "295.00 $",
+            features: ["Rapport détaillé", "Images HD", "Devis précis"],
+            popular: false,
+          },
+          {
+            title: "Nettoyage de drain français",
+            description: "Nettoyage et entretien complet de vos drains français",
+            icon: "💨",
+            price: "335.00 $",
+            features: ["Efficacité maximale", "Longue durée", "Prévention"],
+            popular: false,
+          },
+          {
+            title: "Transport",
+            description: "Frais de déplacement pour intervention",
+            icon: "🚗",
+            price: "85.00 $",
+            features: ["Rapide", "Zone étendue", "Service flexible"],
+            popular: false,
+          },
+          {
+            title: "Appel de service",
+            description: "Frais d'intervention standard",
+            icon: "📞",
+            price: "125.00 $",
+            features: ["Disponible 24/7", "Professionnel", "Sans engagement"],
+            popular: false,
+          },
+        ].map((service, index) => (
+          <div
+            key={index}
+            className={`bg-white rounded-2xl shadow-lg p-6 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border group animate-slide-up relative overflow-hidden h-full ${
+              service.popular
+                ? "border-yellow-400 ring-2 ring-yellow-400"
+                : "border-gray-100"
+            }`}
+            style={{ animationDelay: `${index * 100}ms` }}
+          >
+            {service.popular && (
+              <div className="absolute top-0 right-0 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white px-3 py-1 rounded-bl-lg text-xs font-bold">
+                POPULAIRE
+              </div>
+            )}
+
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-yellow-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+            <div className="relative z-10 h-full flex flex-col">
+              <div className="text-4xl mb-4 transform group-hover:scale-110 transition-transform duration-300">
+                {service.icon}
+              </div>
+
+              {/* Titre limité à 4 lignes */}
+              <h3 className="text-lg font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors line-clamp-4 min-h-[5rem] flex-grow-0">
+                {service.title}
+              </h3>
+
+              <p className="text-gray-600 mb-4 leading-relaxed text-sm flex-grow-0">
+                {service.description}
+              </p>
+
+              <ul className="space-y-2 mb-4 flex-grow">
+                {service.features.map((feature, idx) => (
+                  <li
+                    key={idx}
+                    className="flex items-center text-xs text-gray-700"
+                  >
+                    <CheckCircle className="h-3 w-3 text-green-500 mr-2 flex-shrink-0" />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+
+              <div className="flex items-center justify-between mt-auto pt-4">
+                <div className="text-xl font-bold text-blue-600">
+                  {service.price}
+                </div>
+                <button
+                  onClick={() => scrollToSection("contact")}
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-full text-xs font-semibold transition-all duration-300 transform hover:scale-105 group-hover:shadow-lg whitespace-nowrap"
+                >
+                  Réserver
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Image Slider - occupe 1/4 de l'espace */}
+      <div className="lg:col-span-1">
+        <ImageSlider />
+      </div>
+    </div>
+
+    {/* Services supplémentaires - pleine largeur */}
+    <div className="mt-12">
+      <div className="bg-gradient-to-r from-blue-50 to-yellow-50 rounded-2xl p-8 border border-blue-100">
+        <h3 className="text-2xl font-bold text-gray-800 mb-6 text-center">
+          Services supplémentaires
+        </h3>
+        <div className="grid md:grid-cols-3 gap-6">
+          <div className="flex justify-between items-center py-3 border-b border-gray-200">
+            <span className="font-medium text-gray-700">
+              Appel de service d'urgence
+            </span>
+            <span className="font-bold text-blue-600 text-lg">
+              475.00 $
+            </span>
+          </div>
+          <div className="flex justify-between items-center py-3 border-b border-gray-200">
+            <span className="font-medium text-gray-700">
+              Localisation (Inclus dans inspection caméra)
+            </span>
+            <span className="font-bold text-blue-600 text-lg">
+              50.00 $
+            </span>
+          </div>
+          <div className="flex justify-between items-center py-3 border-b border-gray-200">
+            <span className="font-medium text-gray-700">
+              Temps supplémentaire (inclus 1h de main d'œuvre)
+            </span>
+            <span className="font-bold text-blue-600 text-lg text-nowrap">
+              90$ /H
+            </span>
+          </div>
         </div>
-      </section>
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* Why Choose Us */}
-      <section id="pourquoi" className="py-20 bg-white relative overflow-hidden">
+      <section
+        id="pourquoi"
+        className="py-20 bg-white relative overflow-hidden"
+      >
         <div className="absolute inset-0 opacity-5">
           <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-blue-100 via-transparent to-yellow-100"></div>
         </div>
@@ -370,10 +582,12 @@ function App() {
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4 animate-slide-up">
-              Pourquoi choisir <span className="text-blue-600">SOS Débouchage</span>?
+              Pourquoi choisir{" "}
+              <span className="text-blue-600">SOS Débouchage</span>?
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-6 animate-slide-up animation-delay-200">
-              Spécialiste reconnu en débouchage et inspection de drains, nous servons l'Estrie avec plus de 22 ans d'expertise
+              Spécialiste reconnu en débouchage et inspection de drains, nous
+              servons l'Estrie avec plus de 22 ans d'expertise
             </p>
             <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-yellow-400 mx-auto mt-4 rounded-full animate-slide-up animation-delay-400"></div>
           </div>
@@ -383,40 +597,48 @@ function App() {
               {
                 icon: <Clock className="h-16 w-16 text-blue-600" />,
                 title: "Intervention Rapide",
-                description: "Service d'urgence 24h/7j avec intervention garantie en moins de 60 minutes",
-                color: "blue"
+                description:
+                  "Service d'urgence 24h/7j avec intervention garantie en moins de 60 minutes",
+                color: "blue",
               },
               {
                 icon: <Shield className="h-16 w-16 text-green-600" />,
                 title: "Plus de 22 ans d'expertise",
-                description: "Savoir-faire inégalé et expérience éprouvée dans toute l'Estrie",
-                color: "green"
+                description:
+                  "Savoir-faire inégalé et expérience éprouvée dans toute l'Estrie",
+                color: "green",
               },
               {
                 icon: <Users className="h-16 w-16 text-purple-600" />,
                 title: "Techniciens Certifiés",
-                description: "Équipe professionnelle disponible jour, soir et nuit, 7j/7",
-                color: "purple"
+                description:
+                  "Équipe professionnelle disponible jour, soir et nuit, 7j/7",
+                color: "purple",
               },
               {
                 icon: <Award className="h-16 w-16 text-yellow-600" />,
                 title: "Transparence Totale",
-                description: "Prix clairs, service fiable et professionnalisme reconnu",
-                color: "yellow"
-              }
+                description:
+                  "Prix clairs, service fiable et professionnalisme reconnu",
+                color: "yellow",
+              },
             ].map((feature, index) => (
               <div
                 key={index}
                 className="text-center p-8 bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 group animate-slide-up border border-gray-100"
                 style={{ animationDelay: `${index * 150}ms` }}
               >
-                <div className={`flex justify-center mb-6 p-4 rounded-full bg-${feature.color}-50 w-24 h-24 mx-auto group-hover:scale-110 transition-transform duration-300`}>
+                <div
+                  className={`flex justify-center mb-6 p-4 rounded-full bg-${feature.color}-50 w-24 h-24 mx-auto group-hover:scale-110 transition-transform duration-300`}
+                >
                   {feature.icon}
                 </div>
                 <h3 className="text-2xl font-bold text-gray-800 mb-4 group-hover:text-blue-600 transition-colors">
                   {feature.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                <p className="text-gray-600 leading-relaxed">
+                  {feature.description}
+                </p>
               </div>
             ))}
           </div>
@@ -430,56 +652,72 @@ function App() {
                 </h3>
                 <div className="space-y-6 text-gray-700">
                   <p className="text-lg leading-relaxed">
-                    <span className="text-blue-600">SOS Débouchage</span> est une entreprise spécialisée dans l'inspection de drains,
-                    le débouchage et la réparation par gainage. Nous desservons les régions de Sherbrooke, Magog, Drummondville, Coaticook et les villes voisines
-                    avec un engagement constant vers l'excellence.
+                    <span className="text-blue-600">SOS Débouchage</span> est
+                    une entreprise spécialisée dans l'inspection de drains, le
+                    débouchage et la réparation par gainage. Nous desservons les
+                    régions de Sherbrooke, Magog, Drummondville, Coaticook et
+                    les villes voisines avec un engagement constant vers
+                    l'excellence.
                   </p>
                   <p>
-                    Que ce soit pour un égout sanitaire, un égout pluvial, des drains de fondation, un évier, une fosse septique ou tout autre
-                    système de drainage, nous répondons à tous vos besoins en matière de débouchage, nettoyage et réparation.
+                    Que ce soit pour un égout sanitaire, un égout pluvial, des
+                    drains de fondation, un évier, une fosse septique ou tout
+                    autre système de drainage, nous répondons à tous vos besoins
+                    en matière de débouchage, nettoyage et réparation.
                   </p>
                   <p>
-                    Nous nous déplaçons rapidement à votre résidence, ferme, commerce ou institution avec une flotte d'équipements
-                    complètement renouvelée utilisant des technologies de pointe.
+                    Nous nous déplaçons rapidement à votre résidence, ferme,
+                    commerce ou institution avec une flotte d'équipements
+                    complètement renouvelée utilisant des technologies de
+                    pointe.
                   </p>
                 </div>
               </div>
 
               <div className="animate-slide-up animation-delay-300">
                 <div className="bg-gradient-to-br from-blue-50 to-yellow-50 rounded-2xl p-8 border border-blue-100">
-                  <h4 className="text-2xl font-bold text-gray-800 mb-6 text-center">Nos Avantages Uniques</h4>
+                  <h4 className="text-2xl font-bold text-gray-800 mb-6 text-center">
+                    Nos avantages uniques
+                  </h4>
                   <div className="space-y-4">
                     {[
                       {
                         icon: <Wrench className="h-6 w-6 text-blue-600" />,
-                        text: "Une des seules entreprises en Estrie à offrir la réparation de drain sans excavation"
+                        text: "Une des seules entreprises en Estrie à offrir la réparation de drain sans excavation",
                       },
                       {
                         icon: <Zap className="h-6 w-6 text-yellow-600" />,
-                        text: "Équipements à la fine pointe de la technologie"
+                        text: "Équipements à la fine pointe de la technologie",
                       },
                       {
                         icon: <Shield className="h-6 w-6 text-green-600" />,
-                        text: "Flotte d'équipements complètement renouvelée"
+                        text: "Flotte d'équipements complètement renouvelée",
                       },
                       {
                         icon: <Users className="h-6 w-6 text-purple-600" />,
-                        text: "Service professionnel résidentiel, commercial et institutionnel"
+                        text: "Service professionnel résidentiel, commercial et institutionnel",
                       },
                       {
                         icon: <Award className="h-6 w-6 text-blue-600" />,
-                        text: "Plus de 22 ans d'expérience et d'expertise"
+                        text: "Plus de 22 ans d'expérience et d'expertise",
                       },
                       {
-                        icon: <CheckCircle className="h-6 w-6 text-green-600" />,
-                        text: "Intervention rapide dans toute l'Estrie"
-                      }
+                        icon: (
+                          <CheckCircle className="h-6 w-6 text-green-600" />
+                        ),
+                        text: "Intervention rapide dans toute l'Estrie",
+                      },
                     ].map((advantage, idx) => (
-                      <div key={idx} className="flex items-start space-x-3 p-4 bg-white rounded-lg hover:shadow-md transition-shadow">
+                      <div
+                        key={idx}
+                        className="flex items-start space-x-3 p-4 bg-white rounded-lg hover:shadow-md transition-shadow"
+                      >
                         <div className="flex-shrink-0 mt-1">
                           {advantage.icon}
                         </div>
-                        <p className="text-gray-700 font-medium">{advantage.text}</p>
+                        <p className="text-gray-700 font-medium">
+                          {advantage.text}
+                        </p>
                       </div>
                     ))}
                   </div>
@@ -491,7 +729,10 @@ function App() {
       </section>
 
       {/* Service Areas */}
-      <section id="zones" className="py-20 bg-gradient-to-b from-gray-50 to-white">
+      <section
+        id="zones"
+        className="py-20 bg-gradient-to-b from-gray-50 to-white"
+      >
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4 animate-slide-up">
@@ -513,21 +754,31 @@ function App() {
               { city: "Windsor", time: "20-35 min", popular: false },
               { city: "Richmond", time: "20-30 min", popular: false },
               { city: "Cookshire-Eaton", time: "35-50 min", popular: false },
-              { city: "Danville", time: "25-35 min", popular: false }
+              { city: "Danville", time: "25-35 min", popular: false },
             ].map((zone, index) => (
               <div
                 key={index}
                 className={`bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border group animate-slide-up ${
-                  zone.popular ? 'border-blue-200 bg-gradient-to-br from-blue-50 to-white' : 'border-gray-100'
+                  zone.popular
+                    ? "border-blue-200 bg-gradient-to-br from-blue-50 to-white"
+                    : "border-gray-100"
                 }`}
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-3">
-                    <MapPin className={`h-6 w-6 ${zone.popular ? 'text-blue-600' : 'text-gray-500'}`} />
+                    <MapPin
+                      className={`h-6 w-6 ${
+                        zone.popular ? "text-blue-600" : "text-gray-500"
+                      }`}
+                    />
                     <div>
-                      <h3 className="font-bold text-lg text-gray-800">{zone.city}</h3>
-                      <p className="text-sm text-gray-600">Temps d'intervention: {zone.time}</p>
+                      <h3 className="font-bold text-lg text-gray-800">
+                        {zone.city}
+                      </h3>
+                      <p className="text-sm text-gray-600">
+                        Temps d'intervention: {zone.time}
+                      </p>
                     </div>
                   </div>
                   {zone.popular && (
@@ -543,7 +794,7 @@ function App() {
           <div className="text-center mt-12">
             <p className="text-gray-600 mb-4">Votre ville n'est pas listée?</p>
             <button
-              onClick={() => scrollToSection('contact')}
+              onClick={() => scrollToSection("contact")}
               className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105"
             >
               Vérifier la disponibilité
@@ -553,7 +804,10 @@ function App() {
       </section>
 
       {/* Emergency Section */}
-      <section id="urgence" className="py-20 bg-gradient-to-r from-red-600 to-red-700 text-white relative overflow-hidden">
+      <section
+        id="urgence"
+        className="py-20 bg-gradient-to-r from-red-600 to-red-700 text-white relative overflow-hidden"
+      >
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-10 right-10 w-32 h-32 bg-white rounded-full animate-pulse"></div>
           <div className="absolute bottom-10 left-10 w-24 h-24 bg-yellow-400 rounded-full animate-bounce"></div>
@@ -568,14 +822,28 @@ function App() {
               Situation d'<span className="text-yellow-400">Urgence</span>?
             </h2>
             <p className="text-xl mb-8 opacity-90 animate-slide-up animation-delay-200">
-              Drain bouché, évier bouché, toilette bouchée, remontée d'eau, tuyau gelé ou percé, robinet qui fuit... Nous intervenons immédiatement!
+              Drain bouché, évier bouché, toilette bouchée, remontée d'eau,
+              tuyau gelé ou percé, robinet qui fuit... Nous intervenons
+              immédiatement!
             </p>
 
             <div className="grid md:grid-cols-3 gap-6 mb-12">
               {[
-                { icon: <Droplets className="h-12 w-12" />, title: "Drain Bouché", desc: "Intervention immédiate" },
-                { icon: <AlertTriangle className="h-12 w-12" />, title: "Tuyau Gelé/Percé", desc: "Réparation urgente" },
-                { icon: <Zap className="h-12 w-12" />, title: "Remontée d'Eau", desc: "Sécurisation rapide" }
+                {
+                  icon: <Droplets className="h-12 w-12" />,
+                  title: "Drain Bouché",
+                  desc: "Intervention immédiate",
+                },
+                {
+                  icon: <AlertTriangle className="h-12 w-12" />,
+                  title: "Tuyau Gelé/Percé",
+                  desc: "Réparation urgente",
+                },
+                {
+                  icon: <Zap className="h-12 w-12" />,
+                  title: "Remontée d'Eau",
+                  desc: "Sécurisation rapide",
+                },
               ].map((emergency, index) => (
                 <div
                   key={index}
@@ -600,14 +868,19 @@ function App() {
                 <span>(819) 432-1138</span>
                 <ArrowRight className="h-6 w-6" />
               </a>
-              <p className="mt-4 text-sm opacity-75">Ligne d'urgence disponible 24h/24, 7j/7</p>
+              <p className="mt-4 text-sm opacity-75">
+                Ligne d'urgence disponible 24h/24, 7j/7
+              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Testimonials */}
-      <section id="temoignages" className="py-20 bg-gradient-to-b from-gray-50 to-gray-100 relative">
+      <section
+        id="temoignages"
+        className="py-20 bg-gradient-to-b from-gray-50 to-gray-100 relative"
+      >
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4 animate-slide-up">
@@ -622,37 +895,46 @@ function App() {
                 name: "Marie Dubois",
                 location: "Sherbrooke",
                 rating: 5,
-                comment: "Service exceptionnel! Intervention en 30 minutes, problème résolu rapidement. Je recommande vivement!",
+                comment:
+                  "Service exceptionnel! Intervention en 30 minutes, problème résolu rapidement. Je recommande vivement!",
                 avatar: "M",
-                service: "Débouchage Drain"
+                service: "Débouchage Drain",
               },
               {
                 name: "Jean Tremblay",
                 location: "Magog",
                 rating: 5,
-                comment: "Plombier très professionnel, prix honnête. Mon drain était complètement bouché, maintenant tout fonctionne parfaitement.",
+                comment:
+                  "Plombier très professionnel, prix honnête. Mon drain était complètement bouché, maintenant tout fonctionne parfaitement.",
                 avatar: "J",
-                service: "Inspection Caméra"
+                service: "Inspection Caméra",
               },
               {
                 name: "Sophie Martin",
                 location: "Drummondville",
                 rating: 5,
-                comment: "Excellente expérience! Devis gratuit respecté, travail soigné. Merci à toute l'équipe SOS Débouchage!",
+                comment:
+                  "Excellente expérience! Devis gratuit respecté, travail soigné. Merci à toute l'équipe SOS Débouchage!",
                 avatar: "S",
-                service: "Nettoyage Drain Français"
-              }
+                service: "Nettoyage Drain Français",
+              },
             ].map((testimonial, index) => (
               <div
                 key={index}
                 className="bg-white rounded-2xl shadow-lg p-8 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 group animate-slide-up border border-gray-100 relative overflow-hidden"
                 style={{ animationDelay: `${index * 200}ms` }}
               >
-                <div className="absolute top-4 right-4 text-6xl text-blue-100 font-serif">"</div>
+                <div className="absolute top-4 right-4 text-6xl text-blue-100 font-serif">
+                  "
+                </div>
 
                 <div className="flex items-center mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="h-5 w-5 text-yellow-400 fill-current animate-pulse" style={{ animationDelay: `${i * 100}ms` }} />
+                    <Star
+                      key={i}
+                      className="h-5 w-5 text-yellow-400 fill-current animate-pulse"
+                      style={{ animationDelay: `${i * 100}ms` }}
+                    />
                   ))}
                 </div>
 
@@ -668,7 +950,9 @@ function App() {
                     {testimonial.avatar}
                   </div>
                   <div>
-                    <p className="font-bold text-gray-800 text-lg">{testimonial.name}</p>
+                    <p className="font-bold text-gray-800 text-lg">
+                      {testimonial.name}
+                    </p>
                     <p className="text-gray-600 flex items-center">
                       <MapPin className="h-4 w-4 mr-1" />
                       {testimonial.location}
@@ -694,25 +978,7 @@ function App() {
             <div className="w-24 h-1 bg-gradient-to-r from-blue-600 to-yellow-400 mx-auto mt-4 rounded-full animate-slide-up animation-delay-400"></div>
           </div>
 
-           <div className="max-w-4xl mx-auto">
-            {/* <div className="bg-gradient-to-r from-blue-50 to-yellow-50 rounded-2xl p-8 mb-8 animate-slide-up">
-              <div className="text-center">
-                <h3 className="text-2xl font-bold text-gray-800 mb-4">🎯 Offre Spéciale</h3>
-                <p className="text-lg text-gray-700 mb-4">
-                  <span className="font-bold text-blue-600">Diagnostic GRATUIT</span> +
-                  <span className="font-bold text-green-600"> 10% de réduction</span> sur votre première intervention
-                </p>
-                <div className="flex justify-center items-center space-x-4">
-                  <span className="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-semibold">
-                    Offre limitée
-                  </span>
-                  <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">
-                    Valable ce mois-ci
-                  </span>
-                </div>
-              </div>
-            </div> */}
-
+          <div className="max-w-4xl mx-auto">
             <div className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden animate-slide-up">
               <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-4">
                 <h3 className="font-bold text-lg">Grille tarifaire complète</h3>
@@ -720,22 +986,47 @@ function App() {
               <div className="p-6">
                 <div className="space-y-4">
                   {[
-                    { service: "Débouchage (canalisation 3\" et plus caméra inclus)", price: "425.00 $" },
+                    {
+                      service:
+                        'Débouchage (canalisation 3" et plus caméra inclus)',
+                      price: "425.00 $",
+                    },
                     { service: "Débouchage mineurs", price: "265.00 $" },
                     { service: "Inspection par caméra", price: "295.00 $" },
-                    { service: "Nettoyage de drain français", price: "335.00 $" },
+                    {
+                      service: "Nettoyage de drain français",
+                      price: "335.00 $",
+                    },
                     { service: "Transport", price: "85.00 $" },
                     { service: "Appel de service", price: "125.00 $" },
-                    { service: "Appel de service d'urgence", price: "475.00 $" },
-                    { service: "Localisation (Inclus dans le prix du service d'inspection par caméra)", price: "50.00 $" },
-                    { service: "Temps supplémentaire (appel de service inclus 1h de main d'œuvre)", price: "90$ /H" }
+                    {
+                      service: "Appel de service d'urgence",
+                      price: "475.00 $",
+                    },
+                    {
+                      service:
+                        "Localisation (Inclus dans le prix du service d'inspection par caméra)",
+                      price: "50.00 $",
+                    },
+                    {
+                      service:
+                        "Temps supplémentaire (appel de service inclus 1h de main d'œuvre)",
+                      price: "90$ /H",
+                    },
                   ].map((item, idx) => (
-                    <div key={idx} className="flex justify-between items-center py-3 border-b border-gray-100 last:border-b-0">
+                    <div
+                      key={idx}
+                      className="flex justify-between items-center py-3 border-b border-gray-100 last:border-b-0"
+                    >
                       <div>
-                        <p className="font-medium text-gray-800">{item.service}</p>
+                        <p className="font-medium text-gray-800">
+                          {item.service}
+                        </p>
                       </div>
                       <div className="text-right">
-                        <p className="font-bold text-blue-600 text-lg whitespace-nowrap">{item.price}</p>
+                        <p className="font-bold text-blue-600 text-lg whitespace-nowrap">
+                          {item.price}
+                        </p>
                       </div>
                     </div>
                   ))}
@@ -745,7 +1036,9 @@ function App() {
 
             <div className="text-center mt-8 animate-slide-up animation-delay-600">
               <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
-                <h4 className="font-bold text-lg text-gray-800 mb-2">💡 Bon à savoir</h4>
+                <h4 className="font-bold text-lg text-gray-800 mb-2">
+                  💡 Bon à savoir
+                </h4>
                 <ul className="text-sm text-gray-700 space-y-1">
                   <li>• Devis gratuit et sans engagement</li>
                   <li>• Frais de déplacement selon la zone de service</li>
@@ -764,15 +1057,24 @@ function App() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-4xl font-bold mb-4">Demandez votre devis gratuit</h2>
-              <p className="text-xl opacity-90">Remplissez le formulaire, nous vous rappelons dans les 5 minutes</p>
+              <h2 className="text-4xl font-bold mb-4">
+                Demandez votre devis gratuit
+              </h2>
+              <p className="text-xl opacity-90">
+                Remplissez le formulaire, nous vous rappelons dans les 5 minutes
+              </p>
             </div>
 
             <div className="grid lg:grid-cols-2 gap-8">
-              <form onSubmit={handleSubmit} className="bg-white rounded-lg p-8 text-gray-800">
+              <form
+                onSubmit={handleSubmit}
+                className="bg-white rounded-lg p-8 text-gray-800"
+              >
                 <div className="grid md:grid-cols-2 gap-4 mb-4">
                   <div>
-                    <label className="block text-sm font-semibold mb-2">Nom complet*</label>
+                    <label className="block text-sm font-semibold mb-2">
+                      Nom complet*
+                    </label>
                     <input
                       type="text"
                       name="name"
@@ -783,7 +1085,9 @@ function App() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold mb-2">Téléphone*</label>
+                    <label className="block text-sm font-semibold mb-2">
+                      Téléphone*
+                    </label>
                     <input
                       type="tel"
                       name="phone"
@@ -796,7 +1100,9 @@ function App() {
                 </div>
 
                 <div className="mb-4">
-                  <label className="block text-sm font-semibold mb-2">Email *</label>
+                  <label className="block text-sm font-semibold mb-2">
+                    Email *
+                  </label>
                   <input
                     type="email"
                     name="email"
@@ -808,7 +1114,9 @@ function App() {
                 </div>
 
                 <div className="mb-4">
-                  <label className="block text-sm font-semibold mb-2">Adresse d'intervention*</label>
+                  <label className="block text-sm font-semibold mb-2">
+                    Adresse d'intervention*
+                  </label>
                   <input
                     type="text"
                     name="address"
@@ -820,7 +1128,9 @@ function App() {
                 </div>
 
                 <div className="mb-4">
-                  <label className="block text-sm font-semibold mb-2">Type d'urgence</label>
+                  <label className="block text-sm font-semibold mb-2">
+                    Type d'urgence
+                  </label>
                   <select
                     name="urgency"
                     value={formData.urgency}
@@ -829,12 +1139,16 @@ function App() {
                   >
                     <option value="normal">Intervention normale</option>
                     <option value="urgent">Urgence (dans l'heure)</option>
-                    <option value="emergency">Urgence critique (immédiat)</option>
+                    <option value="emergency">
+                      Urgence critique (immédiat)
+                    </option>
                   </select>
                 </div>
 
                 <div className="mb-6">
-                  <label className="block text-sm font-semibold mb-2">Description du problème</label>
+                  <label className="block text-sm font-semibold mb-2">
+                    Description du problème
+                  </label>
                   <textarea
                     name="problem"
                     value={formData.problem}
@@ -853,13 +1167,16 @@ function App() {
                 </button>
 
                 <p className="text-sm text-gray-600 mt-4 text-center">
-                  * Champs obligatoires. Nous nous engageons à respecter votre vie privée.
+                  * Champs obligatoires. Nous nous engageons à respecter votre
+                  vie privée.
                 </p>
               </form>
 
               <div className="space-y-8">
                 <div>
-                  <h3 className="text-2xl font-bold mb-4">Contactez-nous directement</h3>
+                  <h3 className="text-2xl font-bold mb-4">
+                    Contactez-nous directement
+                  </h3>
                   <div className="space-y-4">
                     <div className="flex items-center space-x-3">
                       <Phone className="h-6 w-6 text-yellow-400" />
@@ -871,24 +1188,37 @@ function App() {
                     <div className="flex items-center space-x-3">
                       <MapPin className="h-6 w-6 text-yellow-400" />
                       <div>
-                        <p className="font-semibold">Service dans toute l'Estrie</p>
-                        <p className="opacity-75">Sherbrooke, Magog, Drummondville, Coaticook...</p>
+                        <p className="font-semibold">
+                          Service dans toute l'Estrie
+                        </p>
+                        <p className="opacity-75">
+                          Sherbrooke, Magog, Drummondville, Coaticook...
+                        </p>
                       </div>
                     </div>
                     <div className="flex items-center space-x-3">
                       <Clock className="h-6 w-6 text-yellow-400" />
                       <div>
                         <p className="font-semibold">Disponible 24h/7j</p>
-                        <p className="opacity-75">Même les weekends et jours fériés</p>
+                        <p className="opacity-75">
+                          Même les weekends et jours fériés
+                        </p>
                       </div>
                     </div>
                   </div>
                 </div>
 
                 <div className="bg-yellow-400 text-blue-900 p-6 rounded-lg">
-                  <h4 className="font-bold text-lg mb-2">🚨 Urgence critique?</h4>
-                  <p className="mb-3">Drain bouché, tuyau percé, remontée d'eau...</p>
-                  <a href="tel:8194321138" className="bg-red-600 text-white font-bold py-3 px-6 rounded-lg inline-block hover:bg-red-700 transition-colors">
+                  <h4 className="font-bold text-lg mb-2">
+                    🚨 Urgence critique?
+                  </h4>
+                  <p className="mb-3">
+                    Drain bouché, tuyau percé, remontée d'eau...
+                  </p>
+                  <a
+                    href="tel:8194321138"
+                    className="bg-red-600 text-white font-bold py-3 px-6 rounded-lg inline-block hover:bg-red-700 transition-colors"
+                  >
                     Appelez immédiatement
                   </a>
                 </div>
@@ -904,10 +1234,17 @@ function App() {
           <div className="grid md:grid-cols-4 gap-8">
             <div>
               <div className="flex items-center space-x-2 mb-4">
-                             <img src="./Logo-SOSDebouchage.svg" width={250} height={20} alt="Logo-SOSDebouchage" />
-
+                <img
+                  src="./Logo-SOSDebouchage.svg"
+                  width={250}
+                  height={20}
+                  alt="Logo-SOSDebouchage"
+                />
               </div>
-              <p className="opacity-75 mb-4">Votre spécialiste en débouchage de drains et plomberie en Estrie. Service d'urgence 24h/7j.</p>
+              <p className="opacity-75 mb-4">
+                Votre spécialiste en débouchage de drains et plomberie en
+                Estrie. Service d'urgence 24h/7j.
+              </p>
               <div className="flex space-x-4">
                 <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors cursor-pointer">
                   <span className="text-sm font-bold">f</span>
@@ -951,7 +1288,10 @@ function App() {
             </div>
           </div>
           <div className="border-t border-gray-700 mt-8 pt-8 text-center opacity-75">
-            <p>&copy; 2025 SOS Débouchage. Tous droits réservés. | Service de plomberie d'urgence en Estrie</p>
+            <p>
+              &copy; 2025 SOS Débouchage. Tous droits réservés. | Service de
+              plomberie d'urgence en Estrie
+            </p>
           </div>
         </div>
       </footer>
@@ -965,6 +1305,140 @@ function App() {
           <Phone className="h-8 w-8 group-hover:animate-pulse" />
         </a>
       </div>
+
+      {/* Floating Form Button */}
+      <div className="fixed bottom-6 left-6 z-50">
+        <button
+          onClick={() => setIsFormOpen(!isFormOpen)}
+          className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white p-4 rounded-full shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-110 group"
+        >
+          <MessageCircle className="h-8 w-8 group-hover:animate-pulse" />
+        </button>
+      </div>
+
+      {/* Floating Form Panel */}
+      {isFormOpen && (
+        <div className="fixed bottom-24 left-6 z-50 w-96 max-w-[calc(100vw-3rem)] animate-slide-up">
+          <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border-2 border-blue-600">
+            <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white p-4 flex justify-between items-center">
+              <h3 className="font-bold text-lg">Demande de devis gratuit</h3>
+              {/* <button
+                onClick={() => setIsFormOpen(false)}
+                className="hover:bg-white/20 p-1 rounded transition-colors"
+              >
+                <X className="h-5 w-5" />
+              </button> */}
+            </div>
+
+            <form
+              onSubmit={handleSubmit}
+              className="p-6 max-h-[70vh] overflow-y-auto"
+            >
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-semibold mb-1 text-gray-700">
+                    Nom complet*
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold mb-1 text-gray-700">
+                    Téléphone*
+                  </label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold mb-1 text-gray-700">
+                    Email*
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold mb-1 text-gray-700">
+                    Adresse d'intervention*
+                  </label>
+                  <input
+                    type="text"
+                    name="address"
+                    value={formData.address}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold mb-1 text-gray-700">
+                    Type d'urgence
+                  </label>
+                  <select
+                    name="urgency"
+                    value={formData.urgency}
+                    onChange={handleInputChange}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                  >
+                    <option value="normal">Intervention normale</option>
+                    <option value="urgent">Urgence (dans l'heure)</option>
+                    <option value="emergency">
+                      Urgence critique (immédiat)
+                    </option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold mb-1 text-gray-700">
+                    Description du problème
+                  </label>
+                  <textarea
+                    name="problem"
+                    value={formData.problem}
+                    onChange={handleInputChange}
+                    rows={3}
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                    placeholder="Décrivez votre problème..."
+                  ></textarea>
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2"
+                >
+                  <span>Envoyer ma demande</span>
+                  <ArrowRight className="h-5 w-5" />
+                </button>
+
+                <p className="text-xs text-gray-600 text-center">
+                  * Champs obligatoires
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
